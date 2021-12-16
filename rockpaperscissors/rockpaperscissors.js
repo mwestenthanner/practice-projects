@@ -1,3 +1,15 @@
+let focusedElement;
+
+const buttons = document.querySelectorAll('button[type=button]');
+const submitButton = document.querySelector('button[type=submit]');
+
+buttons.forEach(button => {
+    button.addEventListener('blur', (e) => setFocusId(e));
+});
+
+submitButton.addEventListener('click', getPlayerInput(focusedElement));
+
+
 function computerPlay() {
 
     choices = [
@@ -69,17 +81,15 @@ function game() {
 
 }
 
-function getPlayerInput() {
+function getPlayerInput(focusedElement) {
 
-    input = prompt("Rock, Paper or Scissors?").toLowerCase();
+    if (focusedElement != null) {
+        let input = focusedElement.trim().toLowerCase();
 
-    while (['rock', 'paper', 'scissors'].includes(input) == false) {
-
-        input = prompt("Invalid input. Try again: Rock, Paper or Scissors?").toLowerCase();
-
-    } 
-    
-    return input;
+        console.log(input);
+        
+        return input;
+    }
 
 }
 
@@ -106,4 +116,11 @@ function getWinner(score) {
     } else return 'It\'s a tie!';
 }
 
-game();
+// game();
+
+function setFocusId(element) {
+    focusedElement = element.target.textContent;
+}
+
+
+
